@@ -16,7 +16,7 @@ dependencies:
   - pip
 
   - pytorch::pytorch >= 1.13
-  - pytorch::pytorch-mutex =*=*cuda*
+  # - pytorch::pytorch-mutex =*=*cuda*
   - transformers >= 4.29.0
   - datasets
   - tokenizers >= 0.13.3

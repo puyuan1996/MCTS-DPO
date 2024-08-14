@@ -467,6 +467,7 @@ class TSRLTrainer(TrainerBase):  # pylint: disable=too-many-instance-attributes
                 if not self.args.offline:
                     self.set_eval()
                 prompt_only_batch = to_device(prompt_only_batch, self.args.device)
+                # import pdb; pdb.set_trace()  # TODO
                 rl_batches = self.split_tsrl_micro_batches(prompt_only_batch)
                 if self.use_ptx:
                     ptx_batch = to_device(ptx_batch, self.args.device)

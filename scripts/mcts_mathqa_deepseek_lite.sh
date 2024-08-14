@@ -10,17 +10,18 @@ ROOT_DIR="$(dirname "${SCRIPT_DIR}")"
 export PYTHONPATH="${ROOT_DIR}${PYTHONPATH:+:${PYTHONPATH}}"
 export LOGLEVEL="${LOGLEVEL:-WARNING}"
 
-# ACTOR_MODEL_NAME_OR_PATH="SFT-Arithmo"
-# ACTOR_REF_MODEL_NAME_OR_PATH="SFT-Arithmo"
+# ACTOR_MODEL_NAME_OR_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
+# ACTOR_REF_MODEL_NAME_OR_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
+# OUTPUT_DIR="MCTS-DPO/outputs/checkpoints/arithmetic/llama3-cdpo-2x2-gtsft"
 
-ACTOR_MODEL_NAME_OR_PATH="lewtun/mistral-7b-sft-ultrachat-arithmo-full"
-ACTOR_REF_MODEL_NAME_OR_PATH="lewtun/mistral-7b-sft-ultrachat-arithmo-full"
+ACTOR_MODEL_NAME_OR_PATH="deepseek-ai/DeepSeek-V2-Lite-Chat"
+ACTOR_REF_MODEL_NAME_OR_PATH="deepseek-ai/DeepSeek-V2-Lite-Chat"
+OUTPUT_DIR="MCTS-DPO/outputs/checkpoints/arithmetic/deepseek-v2-lite-chat-cdpo-2x2-gtsft"
 
-
-OUTPUT_DIR="MCTS-DPO/outputs/checkpoints/arithmetic/cdpo-2x2-gtsft"
 unset HOSTFILE
 ZERO_STAGE=3
 OFFLOAD="optimizer"
+
 
 mkdir -p "${OUTPUT_DIR}"
 OUTPUT_DIR="$(cd "${OUTPUT_DIR}" &>/dev/null && pwd)"
@@ -58,7 +59,7 @@ gpu_vis=$1
 deepspeed --include localhost:$gpu_vis --master_port $MASTER_PORT \
 	--module mcts_rl.algorithms.mcts \
 	--train_datasets MathQA/train \
-	--model_type mistral \
+	--model_type deepseek \
 	--choose_worst \
 	--save_mcts_data \
 	--filter \

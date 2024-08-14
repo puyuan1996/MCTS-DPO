@@ -198,6 +198,7 @@ class MCTS(SearchAlgorithm, Generic[State, Action]):
         node.N += 1
         path = self._select(node)
         while not self._is_terminal_with_depth_limit(path[-1]):
+            import pdb; pdb.set_trace()
             self._expand_and_evaluate(path[-1])
             # ### debug mode
             # if path[-1].parent is not None:
@@ -235,6 +236,7 @@ class MCTS(SearchAlgorithm, Generic[State, Action]):
         if node.is_terminal:
             return
         
+        # import pdb; pdb.set_trace() # TODO
         actions = self.search_config.get_actions(self.policy_model, node.state, add_kl=self.add_kl)
         
         action_batch, log_probs_batch, ref_log_probs_batch = [], [], []

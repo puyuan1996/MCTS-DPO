@@ -72,7 +72,13 @@ class PromptOnlyDataset(TokenizedDataset):
             return input if isinstance(input, str) else tuple(input)
 
         merged = super()._merge_raw_datasets(seed)
-        inputs = {to_hashable(merged[i]): i for i in range(len(merged)) if isinstance(merged[i]['input'], str) or len(merged[i]['input']) == 1}
+        # inputs = {to_hashable(merged[i]): i for i in range(len(merged)) if isinstance(merged[i]['input'], str) or len(merged[i]['input']) == 1}
+        # TODO
+        inputs = {
+            to_hashable(merged[i]): i
+            for i in range(len(merged))
+            if isinstance(merged[i]['input'], str) or (merged[i]['input'] is not None and len(merged[i]['input']) == 1)
+        }
         return Subset(merged, sorted(inputs.values()))
 
 

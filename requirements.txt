@@ -17,3 +17,4 @@ nltk
 peft
 bert_score
 graphviz
+xformers

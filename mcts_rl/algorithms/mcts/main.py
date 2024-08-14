@@ -113,7 +113,7 @@ def parse_arguments() -> argparse.Namespace:
         '--model_type',
         type=str,
         default='mistral',
-        choices=['mistral', 'llama3', 'llama2', 'gpt-j'],
+        choices=['deepseek', 'mistral', 'llama3', 'llama2', 'gpt-j'],
     )
     training_parser.add_argument(
         '--save_mcts_data',
@@ -607,4 +607,5 @@ def main() -> None:
 
 
 if __name__ == '__main__':
+    import pdb; pdb.set_trace()
     main()

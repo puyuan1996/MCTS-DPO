@@ -186,6 +186,7 @@ def load_pretrained_models(  # pylint: disable=too-many-arguments
         torch_dtype=dtype,
         trust_remote_code=trust_remote_code,
         token="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",
+        # use_flash_attention=True,  # 启用 Flash Attention
         **auto_model_kwargs,
     )
     tokenizer = AutoTokenizer.from_pretrained(

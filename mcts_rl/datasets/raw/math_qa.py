@@ -70,7 +70,13 @@ class MathQADataset(RawDataset):
                 self.data = [vv for v in mathqa_dict.values() for vv in v]
                 # self.data = get_arithmo_data(mathqa_dict)
             else:
-                self.data = gsm8k + math
+                # import pdb; pdb.set_trace()
+                # self.data = gsm8k + math
+                # TODO
+                # from datasets import concatenate_datasets
+                # self.data = concatenate_datasets([gsm8k, math])
+                self.data = math
+
 
     def __getitem__(self, index: int) -> RawSample:
         data = self.data[index]

@@ -94,14 +94,20 @@ class MCTSTrainer(TSRLTrainer):
         seq, attn_msk = input_ids[0], attention_mask[0]
         gt_answer, solution = answer[0], prompt_only_batch['reasoning'][0]
         
-        if solution.strip():
+        # if solution.strip(): # TODO
+        if solution is not None and solution.strip():
             self.mcts_searcher.search_config.generation_config.max_new_tokens = min(
                 self.args.max_new_tokens,
                 max(self.generation_config.max_new_tokens // 4,
                     len(self.tokenizer.encode(solution)) // max(1, self.args.depth_limit - 1))
             )
-        
-        self.mcts_searcher.search_config.use_code = ('\nprint(' in solution)
+            self.mcts_searcher.search_config.use_code = ('\nprint(' in solution)
+
+        else:
+            # 处理 None 的情况   
+            # pass # TODO
+            self.mcts_searcher.search_config.use_code = False
+
         if self.mcts_searcher.search_algo.policy_model is None or self.global_step % self.args.iteration_interval == 0:
             self.mcts_searcher.search_algo.policy_model = self.actor_reference_model if self.args.offline else self.actor_model
         target_probs, Q_values, r_values, base_values, visit_counts, select_indexes = [], [], [], [], [], []
